@@ -1,0 +1,55 @@
+classDiagram
+    direction TB
+    class RelojCarrera {
+        +float factor
+        -float _acumulado
+        -float _anterior
+        +__init__(factor)
+        +iniciar()
+        +leer() float
+        +cambiar_factor(factor)
+    }
+    class Vehiculo {
+        +int LONGITUD$
+        +int numero
+        +int rondas
+        +RelojCarrera reloj
+        +id_after
+        +bool activo
+        +int distancia
+        +float tiempo
+        +bool terminado
+        +float intervalo
+        +float proximo_paso
+        +__init__(ventana, numero, rondas, reloj, actualizar)
+        +iniciar()
+        -_sortear_intervalo()
+        -_programar()
+        -_avanzar()
+        +reprogramar()
+        -_cancelar_timer()
+        +detener()
+    }
+    class InterfazCarrera {
+        +Tk ventana
+        +list vehiculos
+        +RelojCarrera reloj
+        +dict resultados
+        +bool activa
+        +int rondas_carrera
+        +int apuesta_carrera
+        +__init__(ventana)
+        -_crear_controles()
+        -_dibujar_pista()
+        +iniciar()
+        -_cambiar_factor(valor)
+        -_actualizar_vehiculo(vehiculo)
+        -_clasificar()
+        -_habilitar(texto)
+        +reiniciar()
+        +cerrar()
+    }
+    InterfazCarrera "1" --> "0..10" Vehiculo : crea y coordina
+    InterfazCarrera "1" --> "1" RelojCarrera : configura
+    Vehiculo "0..10" --> "1" RelojCarrera : consulta
+    note for Vehiculo "Cada objeto mantiene su propio temporizador after"
